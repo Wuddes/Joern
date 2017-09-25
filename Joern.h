@@ -19,6 +19,19 @@ class Joern{
   int _pinDispDI;
   int _pinDispCS;
 /*********************************************
+               Servopositionen
+*********************************************/  
+  int _augenAuf;
+  int _augenZu;
+  int _ohrenRunter;
+  int _ohrenRauf;
+  int _linksDrehen;
+  int _gerade;
+  int _rechtsDrehen;
+  int _vorneKippen;
+  int _aufrecht;
+  int _hintenKippen;
+/*********************************************
                Servomotoren
 *********************************************/  
   Servo _ohren;
@@ -26,14 +39,18 @@ class Joern{
   Servo _schwenken;
   Servo _kippen;
 /*********************************************
+              Private Funktionen
+*********************************************/ 
+  void _singleMotion(Servo servo, int pos, int spe); //Bewegung in eine Richtung
+/*********************************************
                   Display
 *********************************************/  
 
   
   public:
   Joern(); //Konstruktor
-  void init(); //Motorinitialisation
-  void sweep(); //ServoDemo
+  void init(); //Motorinitialisierung
+  void bewegeOhren(int pos, int spe);
 
 /*********************************************
               Getter/Setter
