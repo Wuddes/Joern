@@ -51,6 +51,13 @@ class Joern{
   Joern(); //Konstruktor
   void init(); //Motorinitialisierung
   void bewegeOhren(int pos, int spe);
+  void bewegeAugen(int pos, int spe);
+  void drehe(int pos, int spe);
+  void kippe(int pos, int spe);
+  void sweepOhren(int spe);
+  void sweepAugen(int spe);
+  void sweepDrehe(int spe);
+  void sweepKippe(int spe);
 
 /*********************************************
               Getter/Setter
