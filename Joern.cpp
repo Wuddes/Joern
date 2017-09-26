@@ -20,14 +20,14 @@ Joern::Joern(){
 /*********************************************
                Servopositionen
 *********************************************/
-  _augenAuf = 30;
+  _augenAuf = 20;
   _augenZu = 90;
   _ohrenRunter = 130;
   _ohrenRauf = 90;
   _linksDrehen = 110;
   _rechtsDrehen = 70;
-  _vorneKippen = 70;
-  _hintenKippen = 110;
+  _vorneKippen = 85;
+  _hintenKippen = 95;
   _gerade = 90;
   _aufrecht = 90;
 }
@@ -69,7 +69,15 @@ void Joern::_singleMotion(Servo servo, int pos, int spe){
      }
   }
 }
+/***
+Funktion: bewegeOhren
+Parameter: 
+  int pos:      gewünschte Position
+  int spe:      Bewegungsgeschwindigkeit
 
+Resultat: 
+  Richtet Ohren aus
+***/
 void Joern::bewegeOhren(int pos, int spe){
 if ((pos < _ohrenRauf) || (pos > _ohrenRunter)){
   if(errorFlag == 0){
@@ -80,6 +88,87 @@ if ((pos < _ohrenRauf) || (pos > _ohrenRunter)){
   }else{
     _singleMotion(_ohren,pos,spe);
   }
+}
+/***
+Funktion: bewegeAugen
+Parameter: 
+  int pos:      gewünschte Position
+  int spe:      Bewegungsgeschwindigkeit
+
+Resultat: 
+  Richtet Augen aus
+***/
+void Joern::bewegeAugen(int pos, int spe){
+  if ((pos < _augenAuf) || (pos > _augenZu)){
+    if(errorFlag == 0){
+      Serial.println("Ungueltige Werteangabe: bewegeAugen");
+      Serial.println("Werte zwischen " + String(_augenAuf) + " und " + String(_augenZu) + " werden erwartet!");
+      errorFlag +=1;
+    }
+  }else{
+    _singleMotion(_augen,pos,spe);
+  }
+}
+/***
+Funktion: drehe
+Parameter: 
+  int pos:      gewünschte Position
+  int spe:      Bewegungsgeschwindigkeit
+
+Resultat: 
+  Rotation um Z-Achse
+***/
+void Joern::drehe(int pos, int spe){
+  if ((pos < _rechtsDrehen) || (pos > _linksDrehen)){
+    if(errorFlag == 0){
+      Serial.println("Ungueltige Werteangabe: drehe");
+      Serial.println("Werte zwischen " + String(_rechtsDrehen) + " und " + String(_linksDrehen) + " werden erwartet!");
+      errorFlag +=1;
+    }
+  }else{
+    _singleMotion(_schwenken,pos,spe);
+  }    
+}
+/***
+Funktion: kippe
+Parameter: 
+  int pos:      gewünschte Position
+  int spe:      Bewegungsgeschwindigkeit
+
+Resultat: 
+  Rotation um Y-Achse
+***/
+void Joern::kippe(int pos, int spe){
+  if ((pos < _vorneKippen) || (pos > _hintenKippen)){
+    if(errorFlag == 0){
+      Serial.println("Ungueltige Werteangabe: kippe");
+      Serial.println("Werte zwischen " + String(_vorneKippen) + " und " + String(_hintenKippen) + " werden erwartet!");
+      errorFlag +=1;
+    }
+  }else{
+    _singleMotion(_kippen,pos,spe);
+  } 
+}
+
+void Joern::sweepOhren(int spe){
+  bewegeOhren(_ohrenRunter,spe);
+  bewegeOhren(_ohrenRauf,spe);
+  bewegeOhren(100,spe);
+}
+void Joern::sweepAugen(int spe){
+  bewegeAugen(_augenAuf,spe);
+  delay(1000);
+  bewegeAugen(_augenZu,spe);
+}
+void Joern::sweepDrehe(int spe){
+  drehe(_rechtsDrehen,spe);
+  drehe(_linksDrehen,spe);
+  drehe(_gerade,spe);
+}
+void Joern::sweepKippe(int spe){
+  kippe(_vorneKippen,spe);
+  kippe(_hintenKippen,spe);
+  kippe(_aufrecht,spe);
 }
   
 

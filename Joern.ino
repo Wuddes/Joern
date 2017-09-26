@@ -11,9 +11,13 @@ void setup() {
 }
 
 void loop() {
- robo.bewegeOhren(90,1);
- delay(1000);
- robo.bewegeOhren(130,1);
- delay(1000);                        
+ robo.sweepDrehe(1);
+ delay(1000);   
+ robo.sweepKippe(1);
+ delay(1000);     
+ robo.sweepAugen(3);
+ delay(1000);      
+  robo.sweepOhren(2);
+ delay(1000);                 
 }
 
