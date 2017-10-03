@@ -4,6 +4,7 @@
 
 int errorFlag = 0;
 Joern::Joern(){
+
 /*********************************************
                   Pins
 *********************************************/  
@@ -20,14 +21,14 @@ Joern::Joern(){
 /*********************************************
                Servopositionen
 *********************************************/
-  _augenAuf = 20;
+  _augenAuf = 30;
   _augenZu = 90;
   _ohrenRunter = 130;
   _ohrenRauf = 90;
   _linksDrehen = 110;
   _rechtsDrehen = 70;
   _vorneKippen = 85;
-  _hintenKippen = 95;
+  _hintenKippen = 90;
   _gerade = 90;
   _aufrecht = 90;
 }
@@ -43,6 +44,7 @@ void Joern::init(){
     _ohren.attach(_pinServoOhren);
     _schwenken.attach(_pinServoSchwenken);
     _kippen.attach(_pinServoKippen);
+    pinMode(_pinButton,INPUT);
   }
 
 /***
@@ -149,22 +151,53 @@ void Joern::kippe(int pos, int spe){
     _singleMotion(_kippen,pos,spe);
   } 
 }
+/***
+Funktion: sweepOhren
+Parameter: 
+  int spe:      Bewegungsgeschwindigkeit
 
+Resultat: 
+  Bewegt Ohren nach vorne und nach hinten
+***/
 void Joern::sweepOhren(int spe){
   bewegeOhren(_ohrenRunter,spe);
   bewegeOhren(_ohrenRauf,spe);
   bewegeOhren(100,spe);
 }
+/***
+Funktion: sweepAugen
+Parameter: 
+  int spe:      Bewegungsgeschwindigkeit
+
+Resultat: 
+  Öffnet und schließt Augen
+***/
 void Joern::sweepAugen(int spe){
   bewegeAugen(_augenAuf,spe);
   delay(1000);
   bewegeAugen(_augenZu,spe);
 }
+/***
+Funktion: sweepDrehe
+Parameter: 
+  int spe:      Bewegungsgeschwindigkeit
+
+Resultat: 
+  Dreht von rechts nach links
+***/
 void Joern::sweepDrehe(int spe){
   drehe(_rechtsDrehen,spe);
   drehe(_linksDrehen,spe);
   drehe(_gerade,spe);
 }
+/***
+Funktion: sweepKippe
+Parameter: 
+  int spe:      Bewegungsgeschwindigkeit
+
+Resultat: 
+  Kippt nach vorne und nach hinten
+***/
 void Joern::sweepKippe(int spe){
   kippe(_vorneKippen,spe);
   kippe(_hintenKippen,spe);
