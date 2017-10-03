@@ -2,6 +2,15 @@
 #define Joern_h
 #include "Arduino.h"
 #include <Servo.h>
+/*********************************************
+               Displaypins
+*********************************************/ 
+#define SHARP_SCK  13
+#define SHARP_MOSI 11
+#define SHARP_SS   10
+#define BLACK 0
+#define WHITE 1
+
 
 class Joern{
   private:
@@ -18,6 +27,9 @@ class Joern{
   int _pinDispCLK;
   int _pinDispDI;
   int _pinDispCS;
+  uint8_t _SHARP_SCK;
+  uint8_t _SHARP_MOSI;
+  uint8_t _SHARP_SS;
 /*********************************************
                Servopositionen
 *********************************************/  
@@ -38,15 +50,12 @@ class Joern{
   Servo _augen;
   Servo _schwenken;
   Servo _kippen;
+
 /*********************************************
               Private Funktionen
 *********************************************/ 
   void _singleMotion(Servo servo, int pos, int spe); //Bewegung in eine Richtung
-/*********************************************
-                  Display
-*********************************************/  
 
-  
   public:
   Joern(); //Konstruktor
   void init(); //Motorinitialisierung
@@ -58,33 +67,5 @@ class Joern{
   void sweepAugen(int spe);
   void sweepDrehe(int spe);
   void sweepKippe(int spe);
-
-/*********************************************
-              Getter/Setter
-*********************************************/  
-  int get_pinServoAugen();
-  void set_pinServoAugen();
-  int get_pinServoOhren();
-  void set_pinServoOhren();
-  int get_pinServoSchwenken();
-  void set_pinServoSchwenken();
-  int get_pinServoKippen();
-  void set_pinServoKippen();
-  int get_pinLDR();
-  void set_pinLDR();
-  int get_pinPIR();
-  void set_pinPIR();
-  int get_pinButton();
-  void set_pinButton();
-  int get_pinDispCLK();
-  void set_pinDispCLK();
-  int get_pinDispDI();
-  void set_pinDispDI();
-  int get_pinDispCS();
-  void set_pinDispCS();
-/*********************************************
-
-*********************************************/  
-
   };
   #endif
